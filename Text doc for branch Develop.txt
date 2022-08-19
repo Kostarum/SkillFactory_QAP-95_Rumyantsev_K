@@ -1,3 +1,7 @@
+<<<<<<< HEAD
 New text for test in branch Develop
 Вношу изменения по задаче 9.5
 Теперь вношу изменения не как Kostarum а как user
+=======
+New text for test in branch Develop
+>>>>>>> parent of c1e4bc4 (New change 9.5)
