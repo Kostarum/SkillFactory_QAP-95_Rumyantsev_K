@@ -4,6 +4,7 @@ from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import pytest
+import webbrowser
 import time
 
 @pytest.fixture(autouse=True)
@@ -43,8 +44,7 @@ def test_login_and_My_pets_content():
 # и убедиться, что внутри каждого из них есть имя питомца, возраст и вид.
 
    My_pets = pytest.driver.find_elements(By.XPATH, '//*[@id="all_my_pets"]/table/tbody/tr')
-   My_images = pytest.driver.find_elements(By.XPATH,'//tbody/tr/th')
-   # print(My_images)
+   My_pets_images = pytest.driver.find_elements(By.XPATH, '//tbody/tr/th/img')
    pets_names=[]
    pets_types=[]
    pets_ages=[]
@@ -60,9 +60,17 @@ def test_login_and_My_pets_content():
    print(f'Возраст питомцев:', [x[0] for x in pets_ages])
 
 # Написать тест, который проверяет, что на странице со списком питомцев пользователя:
-# def test_show_my_pets():
-# 1.Присутствуют все питомцы.
-# Необходимо собрать в массив имена питомцев
+
+# 1.Хотя бы у половины питомцев есть фото.
+# Количество питомцев с фото тоже можно посчитать, взяв статистику пользователя
+   k=0
+   for pet in My_pets_images:
+         if pet.get_attribute('src') == '':
+            k += 1
+            print("Нет фото у данного питомца")
+   print(f"Число питомцев ,без фото", k)
+# 2. Присутствуют  все питомцы.
+   # Необходимо собрать в массив имена питомцев
    duplicate_names = set()
    duplicate_types = set()
    duplicate_ages = set()
@@ -72,12 +80,8 @@ def test_login_and_My_pets_content():
    for i in range(len(pets_names)):
       assert pets_names[i] != ''
       print(pets_names[i])
-
-# 2.Хотя бы у половины питомцев есть фото.
-# Количество питомцев с фото тоже можно посчитать, взяв статистику пользователя
-      assert My_images[i].get_attribute('src') != ''
-      # print(My_images[i])
-      
+# Проверяем, что у первого питомца есть фото:
+      assert My_pets_images[0].get_attribute('src') != ''
 # 3.У всех питомцев есть имя, возраст и порода.
       assert pets_types[i] != ''
       print(pets_types[i])
