@@ -1,5 +1,5 @@
-#Базовый класс
-
+#Р‘Р°Р·РѕРІС‹Р№ РєР»Р°СЃСЃ
+# -*- coding: utf8 -*-
 from selenium.webdriver.common.by import By
 from urllib.parse import urlparse
 
@@ -14,19 +14,19 @@ class BaseForm(object):
         url = urlparse(self.driver.current_url)
         return url.hostname
 
-# Класс объекта авторизации по коду на телефон или почту
+# РљР»Р°СЃСЃ РѕР±СЉРµРєС‚Р° Р°РІС‚РѕСЂРёР·Р°С†РёРё РїРѕ РєРѕРґСѓ РЅР° С‚РµР»РµС„РѕРЅ РёР»Рё РїРѕС‡С‚Сѓ
 class CodeForm(BaseForm):
     def __init__(self, driver, timeout=5):
         super().__init__(driver, timeout)
-        # Через Онлайн  Web https://my.rt.ru/
+        # Р§РµСЂРµР· РћРЅР»Р°Р№РЅ  Web https://my.rt.ru/
         url = 'https://b2c.passport.rt.ru/auth/realms/b2c/protocol/openid-connect/auth/' \
               '?client_id=lk_onlime&redirect_uri=https%3A%2F%2Fmy.rt.ru%2Fauth%2Fssoredirect%2F&response_type=code'
 
-        # Или через Старт Web https://start.rt.ru/
+        # РР»Рё С‡РµСЂРµР· РЎС‚Р°СЂС‚ Web https://start.rt.ru/
         # url = 'https://b2c.passport.rt.ru/auth/realms/b2c/protocol/openid-connect/auth?client_id=lk_decosystems' \
         #       '&redirect_uri=https://start.rt.ru/&response_type=code&scope=openid&theme=light'
 
-        # Или через Ключ  Web https://key.rt.ru/
+        # РР»Рё С‡РµСЂРµР· РљР»СЋС‡  Web https://key.rt.ru/
         # url = 'https://b2c.passport.rt.ru/auth/realms/b2c/protocol/openid-connect/auth?client_id=lk_dmh&' \
         #       'redirect_uri=https://sso.key.rt.ru/api/v1/oauth2/b2c/callback&response_type=code&state=' \
         #       'aHR0cHM6Ly9rZXkucnQucnUvbWFpbi9zaWduaW4/dD0xNjc3MjI0NjMyMDU5'
